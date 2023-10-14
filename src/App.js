@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import Login from './pages/Auth/Login';
+import Home from './pages/Home';
+import './styles/App.css';
+import {Route, Routes} from 'react-router-dom'
+import Singin from './pages/Auth/Singin';
+import { ROOT_PATH, HOME_PATH, SINGIN_PATH } from './route/routePaths';
+import { connect } from 'react-redux';
+
+
+function App({ user }) {
+  console.log(user);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path={ROOT_PATH} Component={Login} />
+      <Route path={HOME_PATH} Component={Home} />
+      <Route path={SINGIN_PATH} Component={Singin} />
+    </Routes>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(App);
