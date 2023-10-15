@@ -1,10 +1,18 @@
-import  {store}   from "../../../redux/store";
+import axios from 'axios';
 const Singin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('registrarse handled');
-        console.log('State 3 ',store.getState());
+        //console.log('State 3 ',store.getState());
+        axios({
+            method: "post",
+            data:{
+                username:"hellousername"
+            },
+            withCredentials: true,
+            url: "http://localhost:3001/register"
+        }).then((res)=>console.log(res)).catch((err)=> console.log(err));
     };
 
     return (
