@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import db from "./db/conn.mjs";
 import boddParser from "body-parser";
-import expressSession from'express-session';
+import expressSession from 'express-session';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 
@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(boddParser.json());
-app.use(boddParser.urlencoded({extended: true}));
-app.use(expressSession({secret: 'mySecretkey', resave:false, saveUninitialized:false}));
+app.use(boddParser.urlencoded({ extended: true }));
+app.use(expressSession({ secret: 'mySecretkey', resave: false, saveUninitialized: false }));
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -39,18 +39,19 @@ app.post('/register', async (req, res) => {
 
 })
 
-app.get('/user', async (req, res) => {
-    console.log('api registrarse handled');
+app.post('/user', async (req, res) => {
+    console.log('api login handled');
     const username = req.body.username;
+    const password = req.body.password;
     console.log('register post user ', username);
+    console.log('register post pass ', password);
 
-    let collection = await db.collection("todo-list");
-    let results = await collection.find({})
-        .limit(50)
-        .toArray();
+    let collection = await db.collection("users");
+    let query = { username: req.body.username, password: req.body.password };
+    let result = await collection.findOne(query);
 
-    console.log('send results ', results);
-    res.send(results).status(200);
+    if (!result) res.send("Not found").status(404);
+    else res.send("Found").status(200);
 
 })
 
@@ -61,7 +62,7 @@ app.post('/todos', async (req, res) => {
     let collection = await db.collection("todos");
     collection.deleteMany({});
     let newDocument = req.body.todos;
-    let result = await collection.insertMany(newDocument); 
+    let result = await collection.insertMany(newDocument);
     res.send(result).status(204);
 
 })
@@ -69,11 +70,11 @@ app.post('/todos', async (req, res) => {
 app.get('/todos', async (req, res) => {
     console.log('get todos');
     let collection = await db.collection("todos");
-  let results = await collection.find({})
-    .limit(50)
-    .toArray();-
+    let results = await collection.find({})
+        .limit(50)
+        .toArray(); -
 
-  res.send(results).status(200);
+            res.send(results).status(200);
 
 })
 

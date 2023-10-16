@@ -2,8 +2,19 @@ import Navbar from "./Navbar/navbar"
 import { TodoList } from './TodoList';
 import TodoAdd from './TodoAdd';
 import useTodos from '../hooks/useTodos';
+import { store } from "../../redux/store";
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
+
+    let navigate = useNavigate();
+    console.log('get state work from home ', store.getState());
+    const state = store.getState();
+    const details = state.user.details;
+    console.log('get state work from home2 ', details);
+    if(details === null){
+        navigate('/');
+    }
 
     const { todos, handleDeleteTodo, handleNewTodo, handleToggleTodo } = useTodos();
 
