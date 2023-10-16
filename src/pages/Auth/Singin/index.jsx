@@ -1,18 +1,26 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 const Singin = () => {
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('registrarse handled');
-        //console.log('State 3 ',store.getState());
         axios({
             method: "post",
             data:{
-                username:"hellousername"
+                username:e.target.username.value,
+                password:e.target.password.value
             },
             withCredentials: true,
             url: "http://localhost:3001/register"
-        }).then((res)=>console.log(res)).catch((err)=> console.log(err));
+        }).then((res)=>{
+            console.log(res)
+            if(res.statusText = 'OK')
+            {
+                navigate('/');
+            }
+        }).catch((err)=> console.log(err));
     };
 
     return (

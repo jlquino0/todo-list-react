@@ -1,6 +1,9 @@
 import  {store}  from "../../../redux/store";
 import {userSetDetails} from "../../../redux/user/user.action"
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
+    let navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -13,6 +16,19 @@ const Login = () => {
             }
          }));
          console.log('State 2 ',store.getState());
+         //get from api
+        axios({
+            method: "get",
+            data: {},
+            withCredentials: true,
+            url: "http://localhost:3001/todos"
+        }).then((res) => {
+            console.log('res api todos stringgify--: ',JSON.stringify(res.data))
+            console.log('res api todos lenght ',res.data.length)
+            localStorage.setItem('todos', JSON.stringify(res.data) || [])
+        }).catch((err) => console.log(err));
+        //get from api
+         navigate('/home');
       };
 
     return (
