@@ -5,12 +5,13 @@ import axios from 'axios';
 const init = () => {
     console.log('localstorage-: ',localStorage.getItem('todos'));
     if (localStorage.getItem('todos') == null) {
-        localStorage.setItem('todos', JSON.stringify([]));
-    }
-    return JSON.parse(localStorage.getItem('todos') || []);
+        return [];
+    }else{
+        return JSON.parse(localStorage.getItem('todos') || []);
+    }   
 }
 
-const initialState = []
+const initialState = JSON.parse(localStorage.getItem('todos')) || []
 
 export const useTodos = () => {
     const [todos, dispatch] = useReducer(todoReducer, initialState, init);
@@ -28,7 +29,7 @@ export const useTodos = () => {
                     todos
                 },
                 withCredentials: true,
-                url: "http://localhost:3001/todos"
+                url: "http://localhost:3001/api/todos"
             }).then((res) => {
                 console.log(res)
             }).catch((err) => console.log(err));
@@ -61,11 +62,23 @@ export const useTodos = () => {
         dispatch(action);
     }
 
+    const handleClickTodo = (id,description) => {
+        const action = {
+            type: 'Modify Todo',
+            payload: {
+                id: id,
+                description: description
+            },
+        }
+        dispatch(action);
+    }
+
     return {
         handleDeleteTodo,
         todos,
         handleNewTodo,
-        handleToggleTodo
+        handleToggleTodo,
+        handleClickTodo
     }
 
 }

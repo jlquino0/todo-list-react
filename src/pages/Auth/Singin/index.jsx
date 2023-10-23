@@ -13,7 +13,7 @@ const Singin = () => {
                 password:e.target.password.value
             },
             withCredentials: true,
-            url: "http://localhost:3001/register"
+            url: "http://localhost:3001/api/user"
         }).then((res)=>{
             console.log(res)
             if(res.statusText = 'OK')

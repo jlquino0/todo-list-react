@@ -1,4 +1,11 @@
-export default function Navbar() {
+import { useNavigate } from 'react-router-dom';
+const Navbar = () => {
+    let navigate = useNavigate();
+    const onclick = (e) => {
+        e.preventDefault();
+        navigate('/');
+    }
+
     return (
         <div>
             <nav className="bg-gray-800">
@@ -21,7 +28,7 @@ export default function Navbar() {
                             <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
                                     <a href="#" className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Todo-list</a>
-                                    <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Logout</a>
+                                    <a href="/" onClick={onclick} className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Logout</a>
                                 </div>
                             </div>
                         </div>
@@ -41,3 +48,5 @@ export default function Navbar() {
         </div>
     )
 }
+
+export default Navbar;

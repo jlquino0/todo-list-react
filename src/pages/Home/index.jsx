@@ -16,7 +16,7 @@ export const Home = () => {
         navigate('/');
     }
 
-    const { todos, handleDeleteTodo, handleNewTodo, handleToggleTodo } = useTodos();
+    const { todos, handleDeleteTodo, handleNewTodo, handleToggleTodo, handleClickTodo } = useTodos();
 
     return (
         <>
@@ -26,7 +26,7 @@ export const Home = () => {
                 <TodoAdd onNewTodo={handleNewTodo} />
                 <hr />
                 <div className="col-7">
-                    <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onToggleTodo={handleToggleTodo} />
+                    <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} onToggleTodo={handleToggleTodo} onClickTodo={handleClickTodo} />
                 </div>
             </div>
         </>

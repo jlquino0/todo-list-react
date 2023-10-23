@@ -24,7 +24,7 @@ const Login = () => {
                 password: e.target.password.value
             },
             withCredentials: true,
-            url: "http://localhost:3001/user"
+            url: "http://localhost:3001/api/login"
         }).then((res) => {
             console.log('res api post user--: ', res)
 
@@ -35,7 +35,7 @@ const Login = () => {
                     method: "get",
                     data: {},
                     withCredentials: true,
-                    url: "http://localhost:3001/todos"
+                    url: "http://localhost:3001/api/todos"
                 }).then((res) => {
                     console.log('res api todos stringgify--: ', JSON.stringify(res.data))
                     console.log('res api todos lenght ', res.data.length)
